@@ -5,9 +5,7 @@ import java.awt.Toolkit;
 
 import javax.swing.JFrame;
 
-import jcbt.db.CBTDao;
 import jcbt.dto.Examination;
-import jcbt.dto.Question;
 import jcbt.dto.SessionManager;
 
 /**
