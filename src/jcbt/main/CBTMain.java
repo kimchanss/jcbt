@@ -60,20 +60,8 @@ public class CBTMain extends JFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		/*
-		CBTDao dao = new CBTDao();
-		exam = dao.getExam("driver¢¥s license test");
-		
-		System.out.println(exam.getExamID());
-		System.out.println(exam.getDescription());
-		System.out.println(exam.getTimelimit());
-		for (int i = 0; i < exam.getQuestionSize(); i++) {
-			Question question = exam.getQuestion(i);
-			System.out.println(question.getQuestion());
-			System.out.println(question.getAnswer());
-			for (int j = 0; j < question.getExampleSize(); j++) {
-				System.out.println(question.getExample(j));
-			}
-		}
+		ExamPanel examPanel = new ExamPanel(this);
+		add(examPanel);
 		*/
 	}
 	
