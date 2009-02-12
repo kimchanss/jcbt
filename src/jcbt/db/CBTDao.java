@@ -124,6 +124,11 @@ public class CBTDao {
 		return map;
 	}
 	
+	/**
+	 * 시험 조회
+	 * @param examID
+	 * @return Examination
+	 */
 	public Examination getExam(String examID) {
 		
 		Examination exam = null;
@@ -176,6 +181,77 @@ public class CBTDao {
 			closeAll();
 		}
 		return exam;
+	}
+	
+	/**
+	 * 시험입력
+	 * @param exam
+	 */
+	public void insertExam(Examination exam) {
+		try {
+			conn = DBConnector.getConnection();
+			
+			ps = conn.prepareStatement(sql.getExamIDDupCheckQuery());
+			ps.setString(1, exam.getExamID());
+			rs = ps.executeQuery();
+			
+			int count = 0;
+			
+			if (rs.next()) {
+				count = rs.getInt(1);
+			}
+			
+			conn.setAutoCommit(false); //트랜잭션 처리
+			
+			if (count != 0) {
+				ps = conn.prepareStatement(sql.getDeleteExampleQuery());
+				ps.setString(1, exam.getExamID());
+				ps.executeUpdate();
+				
+				ps = conn.prepareStatement(sql.getDeleteQuestionQuery());
+				ps.setString(1, exam.getExamID());
+				ps.executeUpdate();
+				
+				ps = conn.prepareStatement(sql.getDeleteExamQuery());
+				ps.setString(1, exam.getExamID());
+				ps.executeUpdate();
+			}
+			
+			ps = conn.prepareStatement(sql.getInsertExamQuery());
+			ps.setString(1, exam.getExamID());
+			ps.setString(2, exam.getDescription());
+			ps.setInt(3, exam.getTimelimit());
+			ps.executeUpdate();
+			
+			ArrayList<Question> questionList = exam.getQuestionList();
+			ArrayList<String> exampleList = null;
+			
+			for (int questionIdx = 0; questionIdx < questionList.size(); questionIdx++) {
+				ps = conn.prepareStatement(sql.getInsertQuestionQuery());
+				ps.setInt(1, questionIdx + 1);
+				ps.setString(2, exam.getExamID());
+				ps.setString(3, questionList.get(questionIdx).getQuestion());
+				ps.setString(4, questionList.get(questionIdx).getAnswer());
+				ps.executeUpdate();
+				
+				exampleList = questionList.get(questionIdx).getExampleList();
+				for (int exampleIdx = 0; exampleIdx < exampleList.size(); exampleIdx++) {
+					ps = conn.prepareStatement(sql.getInsertExampleQuery());
+					ps.setInt(1, exampleIdx + 1);
+					ps.setInt(2, questionIdx + 1);
+					ps.setString(3, exam.getExamID());
+					ps.setString(4, exampleList.get(exampleIdx));
+					ps.executeUpdate();
+				}
+			}
+			
+			conn.commit();
+			
+		} catch(SQLException e) {
+			e.printStackTrace();
+		} finally {
+			closeAll();
+		}
 	}
 	
 	/**
