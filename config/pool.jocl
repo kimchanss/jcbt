@@ -1,8 +1,8 @@
 <object class="org.apache.commons.dbcp.PoolableConnectionFactory" xmlns="http://apache.org/xml/xmlns/jakarta/commons/jocl">
 	<object class="org.apache.commons.dbcp.DriverManagerConnectionFactory">
-		<string value="jdbc:oracle:thin:@oracle.stuora.cafe24.com:1521:orcl"/>
-		<string value="stuora"/>
-		<string value="z1x2c3"/>
+		<string value=""/>
+		<string value=""/>
+		<string value=""/>
    </object>
   
    <object class="org.apache.commons.pool.impl.GenericObjectPool">
