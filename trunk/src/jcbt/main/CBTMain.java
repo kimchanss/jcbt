@@ -63,6 +63,11 @@ public class CBTMain extends JFrame {
 		ExamPanel examPanel = new ExamPanel(this);
 		add(examPanel);
 		*/
+		CBTMenuBar cbtMenuBar = new CBTMenuBar();
+		setJMenuBar(cbtMenuBar.getMenuBar());
+		
+		LogInPanel logInPanel = new LogInPanel(this);
+		add(logInPanel);
 	}
 	
 	
