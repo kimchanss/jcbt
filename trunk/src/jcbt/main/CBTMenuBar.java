@@ -9,6 +9,8 @@ import javax.swing.*;
  */
 public class CBTMenuBar{
 
+	private static CBTMenuBar cbtMenuBar = new CBTMenuBar();
+	
 	// menu bar
 	JMenuBar bar;
 	
@@ -31,7 +33,7 @@ public class CBTMenuBar{
 	JMenuItem about;
 	
 	
-	public CBTMenuBar() {
+	private CBTMenuBar() {
 		// TODO Auto-generated constructor stub
 		
 		createMenu();
@@ -58,6 +60,13 @@ public class CBTMenuBar{
 		help.add(helpItem);		help.add(about);
 		
 		bar.add(test);  		bar.add(admin);		bar.add(help);
+	}
+	
+	public static CBTMenuBar getInstance(){
+		if( cbtMenuBar == null){
+			cbtMenuBar = new CBTMenuBar();
+		}
+		return cbtMenuBar;
 	}
 	
 	public JMenuBar getMenuBar(){

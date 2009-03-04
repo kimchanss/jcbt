@@ -12,7 +12,7 @@ public class CBTPanel extends JPanel {
 	/**
 	 * 이 패널이 부착될 프레임의 참조변수
 	 */
-	private CBTMain cbtMain = null;
+	protected CBTMain cbtMain = null;
 	
 	/**
 	 * 프레임의 참조변수를 할당받는다.
