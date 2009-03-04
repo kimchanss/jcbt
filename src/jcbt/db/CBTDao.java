@@ -71,7 +71,7 @@ public class CBTDao {
 	 */
 	public SessionManager logIn(String userID) {
 		
-		SessionManager session = SessionManager.getInstance();
+		SessionManager session = null;
 		
 		try {
 			conn = DBConnector.getConnection();
@@ -80,6 +80,7 @@ public class CBTDao {
 			rs = ps.executeQuery();
 			
 			if (rs.next()) {
+				session = SessionManager.getInstance();
 				session.setUserID(rs.getString("USERID"));
 				session.setUserName(rs.getString("USERNAME"));
 				session.setUserPassword(rs.getString("PASSWORD"));

@@ -63,7 +63,7 @@ public class CBTMain extends JFrame {
 		ExamPanel examPanel = new ExamPanel(this);
 		add(examPanel);
 		*/
-		CBTMenuBar cbtMenuBar = new CBTMenuBar();
+		CBTMenuBar cbtMenuBar = CBTMenuBar.getInstance();
 		setJMenuBar(cbtMenuBar.getMenuBar());
 		
 		LogInPanel logInPanel = new LogInPanel(this);
@@ -80,6 +80,14 @@ public class CBTMain extends JFrame {
 		setLocation(screenSize.width / 2 - width / 2, screenSize.height / 2 - height /2);
 		setSize(width, height);
 		setVisible(true);
+	}
+	
+	public void setSessionManager(SessionManager sm) {
+		session = sm;
+	}
+	
+	public SessionManager getSessionManager(){
+		return session;
 	}
 	
 	/**
