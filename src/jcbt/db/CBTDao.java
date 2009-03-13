@@ -191,7 +191,8 @@ public class CBTDao {
 	public void insertExam(Examination exam) {
 		try {
 			conn = DBConnector.getConnection();
-			
+			conn.setAutoCommit(false); //飘罚黎记 贸府
+
 			ps = conn.prepareStatement(sql.getExamIDDupCheckQuery());
 			ps.setString(1, exam.getExamID());
 			rs = ps.executeQuery();
@@ -202,7 +203,6 @@ public class CBTDao {
 				count = rs.getInt(1);
 			}
 			
-			conn.setAutoCommit(false); //飘罚黎记 贸府
 			
 			if (count != 0) {
 				ps = conn.prepareStatement(sql.getDeleteExampleQuery());
@@ -248,9 +248,13 @@ public class CBTDao {
 			
 			conn.commit();
 			
-		} catch(SQLException e) {
-			e.printStackTrace();
+		} catch(SQLException sqle) {
+			try {conn.rollback();} catch (SQLException sqle2) {}
+			sqle.printStackTrace();
+		} catch(Exception e) {
+			try {conn.rollback();} catch (SQLException sqle) {}
 		} finally {
+			try {conn.setAutoCommit(true);} catch (SQLException sqle) {}
 			closeAll();
 		}
 	}
